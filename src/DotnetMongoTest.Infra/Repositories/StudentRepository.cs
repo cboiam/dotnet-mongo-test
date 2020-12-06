@@ -20,14 +20,14 @@ namespace DotnetMongoTest.Infra.Repositories
             collection.InsertOne(student);
         }
 
-        public void Delete(ObjectId id)
+        public void Delete(string id)
         {
-            collection.DeleteOne(s => s.Id == id);
+            collection.DeleteOne(s => s.Id == ObjectId.Parse(id));
         }
 
-        public Student Detail(ObjectId id)
+        public Student Detail(string id)
         {
-            return collection.Find(s => s.Id == id)
+            return collection.Find(s => s.Id == ObjectId.Parse(id))
                 .SingleOrDefault();
         }
 

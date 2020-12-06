@@ -24,7 +24,7 @@ namespace DotnetMongoTest.ConsoleApp.Operations
                 Operation.Add => new AddHandler(studentRepository),
                 Operation.Update => new UpdateHandler(studentRepository),
                 Operation.Delete => new DeleteHandler(studentRepository),
-                _ => throw new NotImplementedException()
+                _ => throw new NotImplementedException(operation.ToString())
             };
         }
     }

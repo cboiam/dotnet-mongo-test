@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using DotnetMongoTest.Infra.Models;
-using MongoDB.Bson;
 
 namespace DotnetMongoTest.Infra.Interfaces
 {
@@ -9,7 +8,7 @@ namespace DotnetMongoTest.Infra.Interfaces
         void Add(Student student);
         IEnumerable<Student> List();
         void Update(Student student);
-        Student Detail(ObjectId id);
-        void Delete(ObjectId id);
+        Student Detail(string id);
+        void Delete(string id);
     }
 }

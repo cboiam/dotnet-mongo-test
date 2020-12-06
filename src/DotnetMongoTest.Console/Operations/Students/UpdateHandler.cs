@@ -1,13 +1,15 @@
 using System;
 using DotnetMongoTest.Infra.Interfaces;
 using DotnetMongoTest.Infra.Models;
-using MongoDB.Bson;
 
 namespace DotnetMongoTest.ConsoleApp.Operations.Students
 {
-    public class UpdateHandler : OperationWithMenuHandler
+    public partial class UpdateHandler : OperationWithMenuHandler
     {
-        private readonly Student student = new Student();
+        private record ConsoleStudent(string Id, string Name, string Birth, string Semester);
+        private ConsoleStudent consoleStudent;
+        private Student student;
+
         private readonly IStudentRepository studentRepository;
 
         public UpdateHandler(IStudentRepository studentRepository)
@@ -18,20 +20,37 @@ namespace DotnetMongoTest.ConsoleApp.Operations.Students
         public override void Render()
         {
             Console.Write("Student Id: ");
-            student.Id = ObjectId.Parse(Console.ReadLine());
+            var id = Console.ReadLine();
 
             Console.Write("Student Name: ");
-            student.Name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             Console.Write("Student Birth: ");
-            student.Birth = DateTime.Parse(Console.ReadLine());
+            var birth = Console.ReadLine();
 
             Console.Write("Student Semester: ");
-            student.Semester = int.Parse(Console.ReadLine());
+            var semester = Console.ReadLine();
+
+            consoleStudent = new ConsoleStudent(id, name, birth, semester);
         }
 
         protected override void Act()
         {
+            var existingStudent = studentRepository.Detail(consoleStudent.Id);
+
+            if (existingStudent == null)
+            {
+                Console.WriteLine(StudentMessages.StudentNotFound);
+                return;
+            }
+
+            student = existingStudent with
+            {
+                Name = string.IsNullOrWhiteSpace(consoleStudent.Name) ? existingStudent.Name : consoleStudent.Name,
+                Birth = string.IsNullOrWhiteSpace(consoleStudent.Birth) ? existingStudent.Birth : DateTime.Parse(consoleStudent.Birth),
+                Semester = string.IsNullOrWhiteSpace(consoleStudent.Semester) ? existingStudent.Semester : int.Parse(consoleStudent.Semester),
+            };
+
             studentRepository.Update(student);
         }
     }

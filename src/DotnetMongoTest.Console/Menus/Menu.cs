@@ -24,7 +24,7 @@ namespace DotnetMongoTest.ConsoleApp.Menus
             {
                 var operation = GetOperationFromUser();
 
-                if(operation == Operation.Exit)
+                if (operation == Operation.Exit)
                 {
                     return;
                 }

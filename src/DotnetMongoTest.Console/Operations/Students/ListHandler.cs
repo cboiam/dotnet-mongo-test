@@ -1,5 +1,8 @@
 using DotnetMongoTest.Infra.Interfaces;
+using DotnetMongoTest.Infra.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DotnetMongoTest.ConsoleApp.Operations.Students
 {
@@ -17,10 +20,22 @@ namespace DotnetMongoTest.ConsoleApp.Operations.Students
             Console.Clear();
             var students = studentRepository.List();
 
+            if (!students.Any())
+            {
+                Console.WriteLine(StudentMessages.NoStudentsFound);
+                return;
+            }
+            Render(students);
+        }
+
+        private void Render(IEnumerable<Student> students)
+        {
+            Console.WriteLine();
             foreach (var student in students)
             {
-                Console.WriteLine($"\n\n{student}\n");
+                Console.WriteLine(student);
             }
+            Console.WriteLine();
         }
     }
 }

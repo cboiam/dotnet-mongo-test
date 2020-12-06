@@ -1,5 +1,4 @@
 ﻿using DotnetMongoTest.Infra.Interfaces;
-using MongoDB.Bson;
 using System;
 
 namespace DotnetMongoTest.ConsoleApp.Operations.Students
@@ -7,7 +6,7 @@ namespace DotnetMongoTest.ConsoleApp.Operations.Students
     public class DeleteHandler : OperationWithMenuHandler
     {
         private readonly IStudentRepository studentRepository;
-        private ObjectId id;
+        private string id;
 
         public DeleteHandler(IStudentRepository studentRepository)
         {
@@ -17,11 +16,19 @@ namespace DotnetMongoTest.ConsoleApp.Operations.Students
         public override void Render()
         {
             Console.Write("Student Id: ");
-            id = ObjectId.Parse(Console.ReadLine());
+            id = Console.ReadLine();
         }
 
         protected override void Act()
         {
+            var existingStudent = studentRepository.Detail(id);
+
+            if (existingStudent == null)
+            {
+                Console.WriteLine(StudentMessages.StudentNotFound);
+                return;
+            }
+
             studentRepository.Delete(id);
         }
     }

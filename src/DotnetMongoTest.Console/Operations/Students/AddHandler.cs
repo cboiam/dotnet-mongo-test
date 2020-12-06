@@ -6,7 +6,8 @@ namespace DotnetMongoTest.ConsoleApp.Operations.Students
 {
     public class AddHandler : OperationWithMenuHandler
     {
-        private readonly Student student = new Student();
+        private Student student;
+
         private readonly IStudentRepository studentRepository;
 
         public AddHandler(IStudentRepository studentRepository)
@@ -22,13 +23,20 @@ namespace DotnetMongoTest.ConsoleApp.Operations.Students
         public override void Render()
         {
             Console.Write("Name: ");
-            student.Name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             Console.Write("Student Birth: ");
-            student.Birth = DateTime.Parse(Console.ReadLine());
+            var birth = DateTime.Parse(Console.ReadLine());
 
             Console.Write("Student Semester: ");
-            student.Semester = int.Parse(Console.ReadLine());
+            var semester = int.Parse(Console.ReadLine());
+
+            student = new Student
+            {
+                Name = name, 
+                Birth = birth,
+                Semester = semester
+            };
         }
     }
 }

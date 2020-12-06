@@ -1,5 +1,4 @@
 using DotnetMongoTest.Infra.Interfaces;
-using MongoDB.Bson;
 using System;
 
 namespace DotnetMongoTest.ConsoleApp.Operations.Students
@@ -7,7 +6,7 @@ namespace DotnetMongoTest.ConsoleApp.Operations.Students
     public class DetailHandler : OperationWithMenuHandler
     {
         private readonly IStudentRepository studentRepository;
-        private ObjectId id;
+        private string id;
 
         public DetailHandler(IStudentRepository studentRepository)
         {
@@ -17,13 +16,20 @@ namespace DotnetMongoTest.ConsoleApp.Operations.Students
         public override void Render()
         {
             Console.Write("Student Id: ");
-            id = ObjectId.Parse(Console.ReadLine());
+            id = Console.ReadLine();
         }
 
         protected override void Act()
         {
             var student = studentRepository.Detail(id);
-            Console.WriteLine($"\n\n{student}\n");
+
+            if(student == null)
+            {
+                Console.WriteLine(StudentMessages.StudentNotFound);
+                return;
+            }
+
+            Console.WriteLine($"\n{student}\n");
         }
     }
 }
