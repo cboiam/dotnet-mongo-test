@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9283B461-3C1A-449F-9EA9-9A176431FEA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetMongoTest.ConsoleApp", "src\DotnetMongoTest.Console\DotnetMongoTest.ConsoleApp.csproj", "{60C2ABB7-A8AD-4AF9-8473-F4D83A045E89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetMongoTest.ConsoleApp", "src\DotnetMongoTest.ConsoleApp\DotnetMongoTest.ConsoleApp.csproj", "{60C2ABB7-A8AD-4AF9-8473-F4D83A045E89}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetMongoTest.Infra", "src\DotnetMongoTest.Infra\DotnetMongoTest.Infra.csproj", "{EE0C11DF-EF91-4194-B067-1C92454FE23E}"
 EndProject
